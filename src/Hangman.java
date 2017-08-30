@@ -108,7 +108,7 @@ public class Hangman {
 			
 			if (!isCorrect) {
 				guessCount++;
-				System.out.printf("There are no no %c's in the word.\n", guessedChar);
+				System.out.printf("There are no %c's in the word.\n", guessedChar);
 				gui.canvas.enablePart();
 			} else {
 				System.out.println("Your guess is correct.");
