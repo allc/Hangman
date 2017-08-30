@@ -13,25 +13,61 @@ import java.util.Scanner;
  */
 public class Hangman {
 	
-	private String word;
-	private boolean[] isUnmasked; 
-	private int unmaskedCount = 0;
-	
 	private final int GUESS_ALLOWED = 6;
 	
+	private String lexiconFilePath;
+	private String word;
+	
+	private boolean[] isUnmasked; 
+	private int unmaskedCount = 0;
+		
 	private HangmanGUI gui;
 
+	/**
+	 * 
+	 * @param args <code>args[0]</code> is lexicon file path
+	 */
 	public static void main(String[] args) {
-		new Hangman();
+		if (args.length > 0) {
+			new Hangman(args[0]);
+		} else {
+			new Hangman();
+		}
 	}
 	
+	/**
+	 * use specified lexicon file
+	 * @param lexiconFilePath
+	 */
+	public Hangman(String lexiconFilePath) {
+		this.lexiconFilePath = lexiconFilePath;
+		init();
+		runGame();
+	}
+	
+	/**
+	 * use default lexicon file
+	 */
 	public Hangman() {
+		init();
+		runGame();
+	}
+
+	/**
+	 * 
+	 */
+	private void init() {
 		// initialize data
 		initGameData();
 		
 		// initialize GUI
 		gui = new HangmanGUI();
-		
+	}
+
+	/**
+	 * 
+	 */
+	private void runGame() {
 		// show welcome prompt
 		System.out.println("Welcome to Hangman!");
 		
@@ -94,14 +130,21 @@ public class Hangman {
 		
 		scanner.close();
 	}
-	
+
+	/**
+	 * 
+	 */
 	private void initGameData() {
 		// get word
-		HangmanLexicon hangmanLexicon = new HangmanLexicon();
+		HangmanLexicon hangmanLexicon = null;
+		if (lexiconFilePath != null) {
+			hangmanLexicon = new HangmanLexicon(lexiconFilePath);
+		} else {
+			hangmanLexicon = new HangmanLexicon();
+		}
 		Random random = new Random();
 		int index = random.nextInt(hangmanLexicon.getWordCount());
 		word = hangmanLexicon.getWord(index);
-		//System.out.println(word);
 		
 		// initialize guessed
 		isUnmasked = new boolean[word.length()];

@@ -11,20 +11,51 @@ import java.util.NoSuchElementException;
  *
  */
 public class HangmanLexicon {
+	
+	private String lexiconFilePath = "wordlist.txt";
 		
 	private ArrayList<String> words = new ArrayList<String>();
 
 	/**
-	 * get the words from a text file
+	 * use specified lexicon file
+	 * @param lexiconFilePath lexicon file path
 	 */
-	public HangmanLexicon() {
+	public HangmanLexicon(String lexiconFilePath) {
+		this.lexiconFilePath = lexiconFilePath;
+		getWords();
+	}
+	
+	/**
+	 * use default lexicon file
+	 */
+	public HangmanLexicon() {		
+		getWords();
+	}
+
+	/**
+	 * read words from lexicon file into ArrayList
+	 */
+	private void getWords() {
+		// check if lexicon file exists
+		File lexiconFile = new File(lexiconFilePath);
+		if (!lexiconFile.exists()) {
+			System.out.println("The lexicon file does not exists!");
+			System.out.println("Make sure there is a wordlist.txt file in the directory or specify another lexicon file.");
+			System.exit(0);
+		}
+		// get words
 		BufferedReader bufferedrReader = null;
 		try {
-			FileReader fileReader = new FileReader("wordlist.txt");
+			FileReader fileReader = new FileReader(lexiconFile);
 			bufferedrReader = new BufferedReader(fileReader);
 			String word;
 			while ((word = bufferedrReader.readLine()) != null && !word.equals("")) {
 				words.add(word);
+			}
+			// check if there are words added
+			if (words.isEmpty()) {
+				System.out.println("The lexicon file does not contain any words!");
+				System.exit(0);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
