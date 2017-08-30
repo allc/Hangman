@@ -1,3 +1,5 @@
+import java.io.*;
+import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
 /**
@@ -9,15 +11,38 @@ import java.util.NoSuchElementException;
  *
  */
 public class HangmanLexicon {
-	
-	private String[] words = {"BUOY", "COMPUTER", "CONNOISSEUR", "DEHYDRATE", "FUZZY", "HUBBUB", "KEYHOLE", "QUAGMIRE", "SLITHER", "ZIRCON"};
+		
+	private ArrayList<String> words = new ArrayList<String>();
+
+	/**
+	 * get the words from a text file
+	 */
+	public HangmanLexicon() {
+		BufferedReader bufferedrReader = null;
+		try {
+			FileReader fileReader = new FileReader("wordlist.txt");
+			bufferedrReader = new BufferedReader(fileReader);
+			String word;
+			while ((word = bufferedrReader.readLine()) != null && !word.equals("")) {
+				words.add(word);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				bufferedrReader.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 	
 	/**
 	 * returns the number of words in the lexicon
 	 * @return number of words in the lexicon
 	 */
 	public int getWordCount() {
-		return words.length;
+		return words.size();
 	}
 	
 	/**
@@ -26,10 +51,10 @@ public class HangmanLexicon {
 	 * @return the word at the specified index
 	 */
 	public String getWord(int index) {
-		if (index < 0 || index >= words.length) {
+		if (index < 0 || index >= words.size()) {
 			throw new NoSuchElementException("getWord: Illegal index");
 		}
-		return words[index];
+		return words.get(index);
 	}
 	
 }
