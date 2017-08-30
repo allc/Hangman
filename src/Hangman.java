@@ -100,8 +100,10 @@ public class Hangman {
 			boolean isCorrect = false;
 			for (int i = 0; i < wordUpperCase.length(); i++) {
 				if (wordUpperCase.charAt(i) == guessedChar) {
+					if (!isUnmasked[i]) {
+						unmaskedCount++;
+					}
 					isUnmasked[i] = true;
-					unmaskedCount++;
 					isCorrect = true;
 				}
 			}
