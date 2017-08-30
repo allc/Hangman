@@ -4,8 +4,8 @@ A console-based Hangman game. It also shows graphics in a separate window.
 
 ## Screenshots
 
-![](https://cdn.cjxol.com/projects/hangman/images/screenshots/hangman_01.png)
-![](https://cdn.cjxol.com/projects/hangman/images/screenshots/hangman_02.png)
+![](https://cdn.cjxol.com/projects/hangman/images/screenshots/hangman_01.png?v=1.0)
+![](https://cdn.cjxol.com/projects/hangman/images/screenshots/hangman_02.png?v=1.0)
 
 ## How to Use
 - With `.class` files
